@@ -2,12 +2,101 @@ package br.ufpe.cin.android.calculadora
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
+import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        //Variavel que armazena o valor atual mostrado na tela da calculadora
+        var expr : String = text_calc.text.toString()
+
+        /**
+         * Funções para configurar os listeners para cada um dos botões da
+         * calculadora
+         */
+        btn_0.setOnClickListener {
+            expr += "0"
+            text_calc.setText(expr)
+        }
+        btn_1.setOnClickListener {
+            expr += "1"
+            text_calc.setText(expr)
+        }
+        btn_2.setOnClickListener {
+            expr += "2"
+            text_calc.setText(expr)
+        }
+        btn_3.setOnClickListener {
+            expr += "3"
+            text_calc.setText(expr)
+        }
+        btn_4.setOnClickListener {
+            expr += "4"
+            text_calc.setText(expr)
+        }
+        btn_5.setOnClickListener {
+            expr += "5"
+            text_calc.setText(expr)
+        }
+        btn_6.setOnClickListener {
+            expr += "6"
+            text_calc.setText(expr)
+        }
+        btn_7.setOnClickListener {
+            expr += "7"
+            text_calc.setText(expr)
+        }
+        btn_8.setOnClickListener {
+            expr += "8"
+            text_calc.setText(expr)
+        }
+        btn_9.setOnClickListener {
+            expr += "9"
+            text_calc.setText(expr)
+        }
+        btn_Add.setOnClickListener {
+            expr += "+"
+            text_calc.setText(expr)
+        }
+        btn_Multiply.setOnClickListener {
+            expr += "*"
+            text_calc.setText(expr)
+        }
+        btn_Divide.setOnClickListener {
+            expr += "/"
+            text_calc.setText(expr)
+        }
+        btn_Dot.setOnClickListener {
+            expr += "."
+            text_calc.setText(expr)
+        }
+        btn_LParen.setOnClickListener {
+            expr += "("
+            text_calc.setText(expr)
+        }
+        btn_RParen.setOnClickListener {
+            expr += ")"
+            text_calc.setText(expr)
+        }
+        btn_Power.setOnClickListener {
+            expr += "^"
+            text_calc.setText(expr)
+        }
+        btn_Subtract.setOnClickListener {
+            expr += "-"
+            text_calc.setText(expr)
+        }
+        btn_Equal.setOnClickListener {
+            // TODO: evaluate expression in expr
+        }
+        btn_Clear.setOnClickListener {
+            expr = ""
+            text_calc.setText("")
+        }
     }
 
 
