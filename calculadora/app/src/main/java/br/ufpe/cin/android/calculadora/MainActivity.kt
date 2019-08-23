@@ -4,107 +4,102 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.TextView
+import android.widget.Toast
 import androidx.core.widget.TextViewCompat
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
+
+    var expr : String = "0"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         //Variavel que armazena o valor atual mostrado na tela da calculadora
-        var expr : String = text_calc.text.toString()
+        text_calc.setText(expr)
 
         /**
          * 2. Funções para configurar os listeners para cada um dos botões da
          * calculadora
          */
         btn_0.setOnClickListener {
-            expr += "0"
-            text_calc.setText(expr)
+            putChar("0")
         }
         btn_1.setOnClickListener {
-            expr += "1"
-            text_calc.setText(expr)
+            putChar("1")
         }
         btn_2.setOnClickListener {
-            expr += "2"
-            text_calc.setText(expr)
+            putChar("2")
         }
         btn_3.setOnClickListener {
-            expr += "3"
-            text_calc.setText(expr)
+            putChar("3")
         }
         btn_4.setOnClickListener {
-            expr += "4"
-            text_calc.setText(expr)
+            putChar("4")
         }
         btn_5.setOnClickListener {
-            expr += "5"
-            text_calc.setText(expr)
+            putChar("5")
         }
         btn_6.setOnClickListener {
-            expr += "6"
-            text_calc.setText(expr)
+            putChar("6")
         }
         btn_7.setOnClickListener {
-            expr += "7"
-            text_calc.setText(expr)
+            putChar("7")
         }
         btn_8.setOnClickListener {
-            expr += "8"
-            text_calc.setText(expr)
+            putChar("8")
         }
         btn_9.setOnClickListener {
-            expr += "9"
-            text_calc.setText(expr)
+            putChar("9")
         }
         btn_Add.setOnClickListener {
-            expr += "+"
-            text_calc.setText(expr)
+            putChar("+")
         }
         btn_Multiply.setOnClickListener {
-            expr += "*"
-            text_calc.setText(expr)
+            putChar("*")
         }
         btn_Divide.setOnClickListener {
-            expr += "/"
-            text_calc.setText(expr)
+            putChar("/")
         }
         btn_Dot.setOnClickListener {
-            expr += "."
-            text_calc.setText(expr)
+            putChar(".")
         }
         btn_LParen.setOnClickListener {
-            expr += "("
-            text_calc.setText(expr)
+            putChar("(")
         }
         btn_RParen.setOnClickListener {
-            expr += ")"
-            text_calc.setText(expr)
+            putChar(")")
         }
         btn_Power.setOnClickListener {
-            expr += "^"
-            text_calc.setText(expr)
+            putChar("^")
         }
         btn_Subtract.setOnClickListener {
-            expr += "-"
+            putChar("-")
+        }
+        btn_Clear.setOnClickListener {
+            expr = "0"
             text_calc.setText(expr)
+            text_info.setText("")
         }
         // 3. Função para calcular o valor da expressão ('=')
         btn_Equal.setOnClickListener {
             text_info.setText(eval(expr).toString())
-            expr = ""
+            expr = "0"
             text_calc.setText(expr)
         }
-        btn_Clear.setOnClickListener {
-            expr = ""
-            text_calc.setText(expr)
-            text_info.setText(expr)
-        }
+
+
     }
 
+    //Função auxiliar para colocar um digito na calculadora
+    fun putChar(info: String) {
+        if(expr == "0")
+            expr = info
+        else
+            expr += info
+        text_calc.setText(expr)
+    }
 
     //Como usar a função:
     // eval("2+2") == 4.0
@@ -132,7 +127,11 @@ class MainActivity : AppCompatActivity() {
             fun parse(): Double {
                 nextChar()
                 val x = parseExpression()
-                if (pos < str.length) throw RuntimeException("Caractere inesperado: " + ch)
+                if (pos < str.length) {
+                    //5. Coloca um toast para notificar o usuário nos casos em que a aplicação quebrava
+                    Toast.makeText(getApplicationContext(), "Caractere inesperado", Toast.LENGTH_SHORT).show()
+                    return 0.0
+                }
                 return x
             }
 
@@ -188,10 +187,15 @@ class MainActivity : AppCompatActivity() {
                         x = Math.cos(Math.toRadians(x))
                     else if (func == "tan")
                         x = Math.tan(Math.toRadians(x))
-                    else
-                        throw RuntimeException("Função desconhecida: " + func)
-                } else {
-                    throw RuntimeException("Caractere inesperado: " + ch.toChar())
+                    else {
+                        //5.
+                        Toast.makeText(getApplicationContext(), "Função desconhecida", Toast.LENGTH_SHORT).show()
+                        return 0.0
+                    }
+                  } else {
+                    //5.
+                    Toast.makeText(getApplicationContext(), "Caractere inesperado", Toast.LENGTH_SHORT).show()
+                    return 0.0
                 }
                 if (eat('^')) x = Math.pow(x, parseFactor()) // potência
                 return x
