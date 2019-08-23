@@ -3,6 +3,8 @@ package br.ufpe.cin.android.calculadora
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.widget.TextView
+import androidx.core.widget.TextViewCompat
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -18,7 +20,6 @@ class MainActivity : AppCompatActivity() {
          * 2. Funções para configurar os listeners para cada um dos botões da
          * calculadora
          */
-
         btn_0.setOnClickListener {
             expr += "0"
             text_calc.setText(expr)
