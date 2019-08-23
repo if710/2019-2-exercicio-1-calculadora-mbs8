@@ -15,9 +15,10 @@ class MainActivity : AppCompatActivity() {
         var expr : String = text_calc.text.toString()
 
         /**
-         * Funções para configurar os listeners para cada um dos botões da
+         * 2. Funções para configurar os listeners para cada um dos botões da
          * calculadora
          */
+
         btn_0.setOnClickListener {
             expr += "0"
             text_calc.setText(expr)
@@ -90,12 +91,16 @@ class MainActivity : AppCompatActivity() {
             expr += "-"
             text_calc.setText(expr)
         }
+        // 3. Função para calcular o valor da expressão ('=')
         btn_Equal.setOnClickListener {
-            // TODO: evaluate expression in expr
+            text_info.setText(eval(expr).toString())
+            expr = ""
+            text_calc.setText(expr)
         }
         btn_Clear.setOnClickListener {
             expr = ""
-            text_calc.setText("")
+            text_calc.setText(expr)
+            text_info.setText(expr)
         }
     }
 
